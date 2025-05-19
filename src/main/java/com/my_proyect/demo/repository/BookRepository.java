@@ -2,15 +2,14 @@ package com.my_proyect.demo.repository;
 
 import java.util.Optional;
 
-import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.repository.CrudRepository;
+import org.springframework.stereotype.Repository;
 
 import com.my_proyect.demo.model.Book;
 
-public interface  BookRepository extends JpaRepository<Book, Long>{
+@Repository
+public interface BookRepository extends CrudRepository<Book, String> {
 
-    //agregar mas operaciones personalizadas
-	Optional<Book> findBookByTitle(String title);
-	Optional<Book> deleteBookByTitle(String title);
-
-    
+    Optional<Book> findBookByTitle(String title);
+    Optional<Book> deleteBookByTitle(String title);
 }

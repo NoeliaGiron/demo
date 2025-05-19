@@ -1,39 +1,25 @@
 package com.my_proyect.demo.model;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.redis.core.RedisHash;
 
-@Entity
-@Getter @Setter @NoArgsConstructor @AllArgsConstructor
-@Table(name="book")
+import lombok.*;
 
-public class Book {
+import java.io.Serializable;
+
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@RedisHash("Book")  // Redis usará esto como prefijo
+public class Book implements Serializable {
+
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name="BOOK_ID")
-    private long bookId;
+    private String id;
 
-    @Column(name="BOOK_TITLE")
     private String title;
-
-    @Column(name="BOOK_AUTHOR")
     private String author;
-
-    @Column(name="BOOK_PUBLISHED_YEAR")
     private Integer publishedYear;
-
-    @Column(name="BOOK_ISBN")
     private String isbn;
-
-    @Column(name="BOOK_PAGE")
     private String page;
-
 }
