@@ -1,18 +1,17 @@
 package com.my_proyect.demo.model;
 
 import org.springframework.data.annotation.Id;
-import org.springframework.data.redis.core.RedisHash;
+import org.springframework.data.mongodb.core.mapping.Document;
 
-import lombok.*;
 
-import java.io.Serializable;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
-@Getter
-@Setter
-@NoArgsConstructor
-@AllArgsConstructor
-@RedisHash("Book")  // Redis usará esto como prefijo
-public class Book implements Serializable {
+@Document(collection = "book")
+@Getter @Setter @NoArgsConstructor @AllArgsConstructor
+public class Book {
 
     @Id
     private String id;

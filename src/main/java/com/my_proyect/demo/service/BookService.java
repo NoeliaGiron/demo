@@ -12,7 +12,7 @@ import com.my_proyect.demo.repository.BookRepository;
 public class BookService {
 
     @Autowired
-    BookRepository bookRepository;
+    private BookRepository bookRepository;
 
     // Obtener todos los libros
     public Iterable<Book> getAllBooks() {
@@ -34,7 +34,7 @@ public class BookService {
         return bookRepository.findById(id);
     }
 
-    // Eliminar por título (manual)
+    // Eliminar por título
     public boolean deleteBookByTitle(String title) {
         Optional<Book> bookToDelete = bookRepository.findBookByTitle(title);
         if (bookToDelete.isPresent()) {
@@ -44,12 +44,19 @@ public class BookService {
         return false;
     }
 
-    // Actualizar libro
-    public Book updateBook(Book book) {
-        return bookRepository.save(book);
+    // Actualizar libro (requiere que el libro ya exista)
+    public Optional<Book> updateBook(String id, Book updatedBook) {
+        return bookRepository.findById(id).map(existingBook -> {
+            existingBook.setTitle(updatedBook.getTitle());
+            existingBook.setAuthor(updatedBook.getAuthor());
+            existingBook.setPublishedYear(updatedBook.getPublishedYear());
+            existingBook.setIsbn(updatedBook.getIsbn());
+            existingBook.setPage(updatedBook.getPage());
+            return bookRepository.save(existingBook);
+        });
     }
 
-    // Borrar libro directamente
+    // Eliminar libro directamente
     public void deleteBook(Book book) {
         bookRepository.delete(book);
     }

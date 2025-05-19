@@ -1,13 +1,15 @@
 version: '3.8'
 
 services:
-  redis:
-    image: redis:latest
-    container_name: redis-container
+  mongo:
+    image: mongo:latest
+    container_name: mongo-container
     ports:
-      - "6379:6379"
+      - "27017:27017"
+    environment:
+      MONGO_INITDB_DATABASE: mongo            # Nombre de la base de datos
     volumes:
-      - redis-data:/data
+      - mongo-data:/data/db
 
 volumes:
-    redis-data:
+    mongo-data:
