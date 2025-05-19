@@ -1,17 +1,15 @@
 version: '3.8'
 
 services:
-  postgres:
-    image: postgres:15
-    container_name: postgres_db
-    restart: always
-    environment:
-      POSTGRES_USER: admin
-      POSTGRES_PASSWORD: admin
-      POSTGRES_DB: midatabase
+  mongo:
+    image: mongo:latest
+    container_name: mongo-container
     ports:
-      - "5433:5432"
+      - "27017:27017"
+    environment:
+      MONGO_INITDB_DATABASE: mongo            # Nombre de la base de datos
     volumes:
-      - postgres_data:/var/lib/postgresql/data
+      - mongo-data:/data/db
+
 volumes:
-    postgres_data:
+    mongo-data:
